@@ -18,7 +18,7 @@ class PessoaFisica(Cliente):
     def __init__(self, nome, data_nascimento, cpf, endereco):
         super().__init__(endereco)
         self.nome = nome
-        self.data_nascimemnto = data_nascimento
+        self.data_nascimento = data_nascimento
         self.cpf = cpf
 
 
@@ -59,33 +59,33 @@ class Conta:
         excedeu_saldo = valor > saldo
 
         if (excedeu_saldo):
-            print("\n Saldo insuficiente")
+            print("\n =====Saldo insuficiente=====")
 
         elif (valor > 0):
             self._saldo -= valor
-            print("\nSaque realizado com sucesso")
+            print("\n =====Saque realizado com sucesso=====")
             return True
         else:
-            print("\nValor informado inválido")
+            print("\n =====Valor informado inválido=====")
 
         return False
 
     def depositar(self, valor):
         if (valor > 0):
             self._saldo += valor
-            print("\nDeposito realizado com sucesso")
+            print("\n======Deposito realizado com sucesso=====")
         else:
-            print("Valor informado inválido")
+            print("=====Valor informado inválido=====")
             return False
 
         return True
 
 
 class ContaCorrente(Conta):
-    def __init__(self, numero, cliente, limite=500, limite_saque=3):
+    def __init__(self, numero, cliente, limite=500, limite_saques=3):
         super().__init__(numero, cliente)
         self.limite = limite
-        self.limite_saques = limite_saque
+        self.limite_saques = limite_saques
 
     def sacar(self, valor):
         numero_saques = len(
@@ -94,10 +94,10 @@ class ContaCorrente(Conta):
         )
 
         if (valor > self.limite):
-            print("\nSaque excedeyu limite")
+            print("\n =====Saque excedeu limite=====")
 
         elif (numero_saques >= self.limite_saques):
-            print("\nNumero maximo de saques excedido")
+            print("\n =====Numero maximo de saques excedido=====")
         else:
             return super().sacar(valor)
 
@@ -113,18 +113,21 @@ class ContaCorrente(Conta):
 
 class Historico:
     def __init__(self):
-        self.tranascoes = []
+        self.transacoes = []
 
     @property
     def transacoes(self):
-        return self._trasacoes
+        return self._transacoes
 
     def adicionar_transacoes(self, transacao):
-        self._transacoes.append({
-            "tipo": transacao.__class__.__name__,
-            "valor": transacao.valor,
-            "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s"),
-        })
+        self._transacoes.append(
+            {
+                "tipo": transacao.__class__.__name__,
+                "valor": transacao.valor,
+                "data": datetime.now().strftime
+                ("%d-%m-%Y %H:%M:%s"),
+            }
+        )
 
 
 class Transacao(ABC):
